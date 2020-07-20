@@ -81,19 +81,19 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./local/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./multi-entry-points/src/js/precios.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./local/index.js":
-/*!************************!*\
-  !*** ./local/index.js ***!
-  \************************/
+/***/ "./multi-entry-points/src/js/precios.js":
+/*!**********************************************!*\
+  !*** ./multi-entry-points/src/js/precios.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("console.log(`Hola mundo desde Webpack local!`);\n\n//# sourceURL=webpack:///./local/index.js?");
+eval("console.log(`Hola mundo desde Webpack local y soy un precio!`);\n\n//# sourceURL=webpack:///./multi-entry-points/src/js/precios.js?");
 
 /***/ })
 

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "build:local": "webpack --config ./local/webpack_local.config.js"
+    "build:multi": "webpack --config ./multi-entry-points/webpack_local.config.js"
   },
   "keywords": [],
   "author": "Diego Rojas <diegorojas431@gmail.com>",

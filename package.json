@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "build:local": "webpack --config ./local/webpack_local.config.js"
   },
   "keywords": [],
   "author": "Diego Rojas <diegorojas431@gmail.com>",

@@ -1,6 +1,6 @@
 const path = require ('path')
 
-const MiniCSSExtractPlugin = require ('mini-css-extract-plugin')
+// const MiniCSSExtractPlugin = require ('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require ('html-webpack-plugin')
 const webpack =  require('webpack')
 
@@ -19,6 +19,11 @@ module.exports = {
   },
   module:{
     rules:[
+      {
+        test: /\.js$/,
+        use: 'babel-loader',
+        exclude: /node_modules/
+      },
       {
         test: /\.css$/,
         use:[

@@ -4,54 +4,44 @@
 
 ### Hot Module Replacement (HMR)
 
-Podemos hacer que el navegador solamente recargue las partes importante que hacemos en nuetro codigo sin recargar la pagina; esto es increible para react, vue y angular.
+Genralmente como desarrolladores menejaremos caracteristicas de JavaScript en nuestros proyectos superior a ES6 de lso cuales el navegador no padria interpretar.
+
+Por ello de Webpack puede usar a **Babel** como un ayudante que permite transpilar nuestro codigo moderno de JavaScript a codigo que el navegador entiende.
+
+Para ello deberemos instalar las siguientes dependencias para poder usar Babel en Webpack.
+
+`npm install babel-loader -D -E`
+`npm install @babel-core -D -E`
+`npm install @babel-preset-env -D -E`
+
+- **babel-loader:** Interceptara nuestros archivos JS de nuestro de proyecto.
+
+- **@babel-core:** Babel empezara a trabajar con los archivos JS interceptados por medio del archivo en el navegador.
+
+- **@babel-preset-env:** Que caracteristicas de JS queremos que preajuste para que sea soportado en el navegador.
 
 ###### Ejemplo
 
-**webpack_local.config.js**
+***webpack_local.config.js***
 
 ```
-const webpack =  require('webpack')
-
-module.exports = {
-  devServer:{
-    hot: true,    //Habilita el HMR para poder trabajarlo en el codigo
-    open: true,   //Abre una pestaña en el navegador
-    port: 9000    //configuramos el puerto que deseamos
-  },
   module:{
     rules:[
       {
-        test: /\.css$/,
-        use:[
-          {loader: 'style-loader'},
-          {loader: 'css-loader'},
-        ]
+        test: /\.js$/,
+        use: 'babel-loader',
+        exclude: /node_modules/
       }
     ]
-  },
-  plugins:[
-    new webpack.HotModuleReplacementPlugin(),  //Traemos el plugin que trae Webpack por defecto.
-    new HtmlWebpackPlugin({
-      title: `Webpack:Hot Module Repacement`
-    }),
-  ],
-  mode: 'development'
-}
+  }
 ```
 
-**index.js**
+***.babelrc***
 
 ```
-import '../css/index.css'
-
-import text from './text'
-
-text()
-
-if(module.hot){
-  module.hot.accept('./text.js', () =>{
-    text()
-  })
+{
+  "presets": [
+    "@babel/preset-env"
+  ]
 }
 ```

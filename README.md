@@ -2,23 +2,56 @@
 
 **Webpack** es un empaquetador de modulos para aplicaciones JavaScript modernas. Es decir, aplicaciones como Sass, ES6 ó superiores , png, react, etc. Que es por lo común los navegadores no entienden, webpack hace posible que esta imposiblidad suceda transpilando estas tecnologias bundles que el navegador entienda. Mejorando asi la experiencia de dos actores principales: ***User Experience: production*** y la ***Developer Experience: Desallorro***
 
-### Servidor de desarrollo
+### Hot Module Replacement (HMR)
 
-Podemos usar dos habilidades del modo de desarrollo de Webpack para que nuestro Developer Experience sea mucho mejor de lo que es a la hora de programar.
+Podemos hacer que el navegador solamente recargue las partes importante que hacemos en nuetro codigo sin recargar la pagina; esto es increible para react, vue y angular.
 
-- Que Webpack escuche los cambios de hacemos a nuestro codigo.
-- Que el navegador recargue la pagina al ver los cambios hechos.
-
-Para ello deberemos descargar la sigiente dependencia.
-
-`npm install webpack-dev-server -D -E`
-
-Luego deberemos configurar nuestro archivo **Package.json** en sus scripts
 ###### Ejemplo
 
+**webpack_local.config.js**
+
 ```
-"scripts": {
-    "build": "webpack",
-    "build:dev": "webpack-dev-server --config ./webpack-dev-server/webpack_local.config.js"
+const webpack =  require('webpack')
+
+module.exports = {
+  devServer:{
+    hot: true,    //Habilita el HMR para poder trabajarlo en el codigo
+    open: true,   //Abre una pestaña en el navegador
+    port: 9000    //configuramos el puerto que deseamos
   },
+  module:{
+    rules:[
+      {
+        test: /\.css$/,
+        use:[
+          {loader: 'style-loader'},
+          {loader: 'css-loader'},
+        ]
+      }
+    ]
+  },
+  plugins:[
+    new webpack.HotModuleReplacementPlugin(),  //Traemos el plugin que trae Webpack por defecto.
+    new HtmlWebpackPlugin({
+      title: `Webpack:Hot Module Repacement`
+    }),
+  ],
+  mode: 'development'
+}
+```
+
+**index.js**
+
+```
+import '../css/index.css'
+
+import text from './text'
+
+text()
+
+if(module.hot){
+  module.hot.accept('./text.js', () =>{
+    text()
+  })
+}
 ```

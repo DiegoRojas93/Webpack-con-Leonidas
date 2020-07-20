@@ -1,0 +1,26 @@
+body{
+  background: rgb(84, 225, 230);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  font-size: 40px;
+  font-family: system-ui;
+  text-align: center;
+  text-shadow: 1px 1px 1px black;
+  color: white;
+  animation: 300ms latido infinite;
+}
+
+@keyframes latido {
+  from{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.1);
+  }
+  to{
+    transform: scale(1);
+  }
+}

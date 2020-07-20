@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "build:dev": "webpack-dev-server --config ./webpack-dev-server/webpack_local.config.js"
+    "build:HMR": "webpack-dev-server --config ./HMR/webpack_local.config.js"
   },
   "keywords": [],
   "author": "Diego Rojas <diegorojas431@gmail.com>",

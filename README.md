@@ -13,12 +13,18 @@ Para ello deberemos instalar las siguientes dependencias para poder usar Babel e
 `npm install babel-loader -D -E`
 `npm install @babel-core -D -E`
 `npm install @babel-preset-env -D -E`
+`npm install @babel/runtime -S -E`
+`npm install @babel/plugin-transform-runtime -D -E`
 
 - **babel-loader:** Interceptara nuestros archivos JS de nuestro de proyecto.
 
 - **@babel-core:** Babel empezara a trabajar con los archivos JS interceptados por medio del archivo en el navegador.
 
 - **@babel-preset-env:** Que caracteristicas de JS queremos que preajuste para que sea soportado en el navegador.
+
+- **@babel/runtime:** Es una bblioteca que contiene loa ayudantes del runtime que permite entender codigo moderno a babel, como funciones asincronas, template literals ó arrow functions.
+
+- **@babel/plugin-transform-runtime:** Perminte ahorrar el tamaño del codigo, ademas de jalar el core de @babel/runtime.
 
 ###### Ejemplo
 
@@ -40,6 +46,9 @@ Para ello deberemos instalar las siguientes dependencias para poder usar Babel e
 
 ```
 {
+  "plugins": [
+    "@babel/plugin-transform-runtime"
+  ],
   "presets": [
     "@babel/preset-env"
   ]

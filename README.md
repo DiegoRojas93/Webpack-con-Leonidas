@@ -2,38 +2,58 @@
 
 **Webpack** es un empaquetador de modulos para aplicaciones JavaScript modernas. Es decir, aplicaciones como Sass, ES6 ó superiores , png, react, etc. Que es por lo común los navegadores no entienden, webpack hace posible que esta imposiblidad suceda transpilando estas tecnologias bundles que el navegador entienda. Mejorando asi la experiencia de dos actores principales: ***User Experience: production*** y la ***Developer Experience: Desallorro***
 
-### Loaders
+### Plugins
 
-Los **loaders** o **cargadores** son tareas que permiten transformar archivos de diferentes lenguajes (CSS, TypeScript, etc) a JavaScript o cargar imagenes en url de datos.
+Los **plugins** ó **complementos** son la columna vertebral de Webpack, y son un objeto de JavaScript que tiene un metodo ***apply.**
 
-Los cargadores incluso permite importar archivos de css directamente a sus archivos de JavaScript.
+**Los plugins sirven para hacer tareas que un loader no hace.**
 
-**Los cargadores se evaluan de abajo hacia arriba.** Y para empezarlos a utilizarlos necesitaremos descargar sus respectivas dependencias.
+para poder usarlos debemos mostrar un ejemplo claro de como inicializarlos en webpack, y lo primero que debemos hacer es instalarlos en la terminal via npm.
 
-`npm install sass-loader css-loader style-loader -D -E`
+`npm install mini-css-extract-plugin -D -E`
 
-- **sass-loader:** carga el archivo sass en el que estamos trabajando y lo transpila a css.
+`npm install html-webpack-plugin -D -E`
 
-- **css-loader:** toma el css y lo devuelve a datos que podran ser leidos por medio de ***imports*** ó ***url()*** en nuestros archivos JavaScript cuando trabajemos en el proyecto.
+- **html-webpack-plugin:** Simplifica la creacion de archivos HTML.
+- **mini-css-extract-plugin:** Extrae el css de desarrollo y los envia a la carpeta de produccion.
 
-- **style-loader:** Inyecta los estilos a la etiqueta head de nuestro html por medio del JavaScript.
+Luego de ello debemos configurar el archivo de configuracion de Webpack.
 
 ###### Ejemplo
 
 ```
-module:{
+const path = require ('path')
+
+const MiniCSSExtractPlugin = require ('mini-css-extract-plugin')
+const HtmlWebpackPlugin = require ('html-webpack-plugin')
+
+module.exports = {
+  entry: {
+    home: path.resolve(__dirname, 'src/js/index.js'),
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: "js/[name].js"
+  },
+  module:{
     rules:[
       {
         test: /\.css$/,
         use:[
-          {loader: 'style-loader'},
-          {
-            loader: 'css-loader',
-            options: {modules:true}
-          },
-          {loader: 'sass-loader'},
+          {loader: MiniCSSExtractPlugin.loader},
+          {loader: 'css-loader'},
         ]
       }
     ]
-  }
+  },
+  plugins:[
+    new HtmlWebpackPlugin({
+      title: `Plugins`
+    }),
+    new MiniCSSExtractPlugin({
+      filename: 'css/[name].css'
+    })
+  ],
+  mode: 'development'
+}
 ```

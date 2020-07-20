@@ -2,15 +2,20 @@
 
 **Webpack** es un empaquetador de modulos para aplicaciones JavaScript modernas. Es decir, aplicaciones como Sass, ES6 ó superiores , png, react, etc. Que es por lo común los navegadores no entienden, webpack hace posible que esta imposiblidad suceda transpilando estas tecnologias bundles que el navegador entienda. Mejorando asi la experiencia de dos actores principales: ***User Experience: production*** y la ***Developer Experience: Desallorro***
 
-### webpack-cli
+### webpack.config
 
-Desde la version 4 de Webpack, se incluyo un **CLI** ó ***Command line interface*** (interfaz de linea de comando) el cual es un paquete que nos permite tener la habilidad de manipular los comandos de webpack desde la terminal de comandos del computador.
+Si tenermos muchas configuraciones que debemos ejecutar en la terminal de comandos por medio de Webpack-CLI, no seria la mejor forma de hacerlo en terminos de tiempo y rendimiento.
 
-Para poder llamarla deberemos usar **npx** seguido del comando de webpack en la terminal.
+webpack.config es un archivo de JS que compila nuestras configuraciones de webpack que permite ejecutarlo en una sola linea de codgo en nuestra terminal.
 
-`npx webpack --entry ./index.js --output ./bundle.js`
+```
+const path = require ('path')
 
-Webpack nos da la opcion de configuracion ***--mode*** el cual si no la configuramos desde el principio nos dara por defecto el modo de configuracion de **production.**
-
-- **--mode production:** codigo de 1 sola linea
-- **--mode development:** codigo entendible para el desarrollador
+module.exports = {
+  entry: // Indica que modulos deberia tomar para comenzar a trabajar.
+  output: // Indica donde emitir los paquetes que construye y como deberia construirlos.
+  loaders: // Permite que webpack pueda procesar otros tipos de archivos como: Sass, CSS, react, Tailwindcss, etc. Convirtiendolos a archivos JavaScript y Json que solo pueda comprender.
+  plugins: //Ayudan a dar tareas mas especificas que los loaders no pueden hacer.
+  mode: // Podemos configurar el modo en el que los archivos del output saltran despues de que Webpack termine su trabajo: development ó production.
+}
+```

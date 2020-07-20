@@ -2,22 +2,15 @@
 
 **Webpack** es un empaquetador de modulos para aplicaciones JavaScript modernas. Es decir, aplicaciones como Sass, ES6 ó superiores , png, react, etc. Que es por lo común los navegadores no entienden, webpack hace posible que esta imposiblidad suceda transpilando estas tecnologias bundles que el navegador entienda. Mejorando asi la experiencia de dos actores principales: ***User Experience: production*** y la ***Developer Experience: Desallorro***
 
-### Configuracion
+### webpack-cli
 
-1. Deberas tener instaladas estas tecnologias:
+Desde la version 4 de Webpack, se incluyo un **CLI** ó ***Command line interface*** (interfaz de linea de comando) el cual es un paquete que nos permite tener la habilidad de manipular los comandos de webpack desde la terminal de comandos del computador.
 
-- git
-- Nodejs
-- npm
+Para poder llamarla deberemos usar **npx** seguido del comando de webpack en la terminal.
 
-2. Crea la carpeta de tu proyecto e inicializa git y npm
-3. Instala las Sigientes dependencias:
+`npx webpack --entry ./index.js --output ./bundle.js`
 
-`npm install webpack --save-dev --save-exact`
-`npm install webpack-cli --save-dev --save-exact`
+Webpack nos da la opcion de configuracion ***--mode*** el cual si no la configuramos desde el principio nos dara por defecto el modo de configuracion de **production.**
 
-Recuerda que en el archivo de package.json hay dos formas de instalar las dependencias:
-
-**dependencies:** Son las dependencias core, es decir, que son aquellas dependencias que son esenciales para el funcionamiento de la dependencias que ayudan al desarrollo de nuestro proyecto.
-
-**Devdependencies:** Son las dependencias que ayudan a mejorar el desarrollo de nuestro proyecto, como lo son Sass, PostCss, react, etc.
+- **--mode production:** codigo de 1 sola linea
+- **--mode development:** codigo entendible para el desarrollador

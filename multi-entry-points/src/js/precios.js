@@ -1,1 +1,0 @@
-console.log(`Hola mundo desde Webpack local y soy un precio!`);

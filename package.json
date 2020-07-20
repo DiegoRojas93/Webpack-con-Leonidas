@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "build:multi": "webpack --config ./multi-entry-points/webpack_local.config.js"
+    "build:loader": "webpack --config ./loader/webpack_local.config.js"
   },
   "keywords": [],
   "author": "Diego Rojas <diegorojas431@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "css-loader": "3.6.0",
+    "style-loader": "1.2.1",
     "webpack": "4.43.0",
     "webpack-cli": "3.3.12"
   }

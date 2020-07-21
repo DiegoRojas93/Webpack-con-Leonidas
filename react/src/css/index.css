@@ -11,3 +11,11 @@ body{
   text-shadow: 1px 1px 1px black;
   color: white;
 }
+
+ul{
+  padding: 0px;
+}
+
+ul li {
+  list-style: none;
+}

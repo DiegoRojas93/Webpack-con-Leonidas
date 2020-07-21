@@ -4,92 +4,76 @@
 
 ### Webpack Avanzado: Dynamic Link Library
 
-Entre más librerias o dependencias corran en nuesto proyecto, más lento sera sera el build de production que hara Webpack.
+Webpack trae una caracteristica muy especial dentro del code spliting, llamada **Dynamic imports** (importaciones dinamicas) la cual implica traer un import o un chunck cada vez que el usuario interactue en la pagina de tu proyecto, por ejemplo: dar un click a un boton y te triga por medio de una peticion un loader o un componente a tu pagina principal, esto ayudara en el performance de tu proyecto en la web.
 
-https://webpack.js.org/plugins/dll-plugin/
+https://webpack.js.org/guides/code-splitting/#dynamic-imports
 
-https://webpack.js.org/plugins/dll-plugin/#dllreferenceplugin
+Para soportar los Dinamics imports debemos instalar la siguiente dependencia.
+
+`npm install @babel/plugin/syntax-dynamic-import -D -E`
 
 ###### Ejemplo
 
-***webpack.dll.config.js***
+***.babelrc***
 
 ```
-const path = require ('path')
-const webpack =  require('webpack')
-
-module.exports = {
-  entry: {
-    modules: [
-      'react',
-      'react-dom'
-    ]
-  },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: "js/[name].js",
-    library: '[name]'
-  },
-  plugins:[
-    new webpack.DllPlugin({
-      name: '[name]',
-      path: path.join(__dirname, '[name]-manifest.json')
-    })
+{
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-transform-runtime"
   ],
-  mode: 'production'
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ]
 }
 ```
 
 ***webpack_local.config.js***
 
 ```
-const path = require ('path')
+output: {
+  path: path.resolve(__dirname, 'dist'),
+  filename: "js/[name].js",
+  publicPath: 'dist/',
+  chunkFilename: 'js/[id].[chunkhash].js'
+},
+```
 
-const MiniCSSExtractPlugin = require ('mini-css-extract-plugin')
-const webpack =  require('webpack')
+***alert.js***
 
-module.exports = {
-  entry: {
-    home: path.resolve(__dirname, 'src/js/index.js'),
-    contact: path.resolve(__dirname, 'src/js/contact.js'),
-  },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: "js/[name].js"
-  },
-  module:{
-    rules:[
-      {
-        test: /\.css$/,
-        use:[
-          {
-            loader: MiniCSSExtractPlugin.loader
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1
-            }
-          },
-          {loader: 'postcss-loader'},
-        ]
-      }
-    ]
-  },
-  plugins:[
-    new MiniCSSExtractPlugin({
-      filename: 'css/[name].css',
-      chunkFilename: 'css/[id].css'       //Determina el nombre de los archivos css fracmentados sin entrada
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      title: 'Dll-Plugin',
-      template: path.resolve(__dirname, 'index.html')
-    }),
-    new webpack.DllReferencePlugin({
-      manifest: require ('./modules-manifest.json')
-    })
-  ],
-  mode: 'production',
+```
+function alerta (message){
+  alert (message)
 }
+
+export {
+  alerta
+}
+```
+
+***App.js***
+
+```
+import React, { useState } from 'react'
+
+function App(){
+  const [loaderList, setLoaderList] = useState([])
+
+  async function handleClick (){
+    setLoaderList(data.loaders)
+
+    const { alerta } = await import ('./alert')
+
+    alerta(`Este modulo ha cargado dinamicamente`)
+  }
+
+  return(
+    <React.Fragment>
+      <button onClick={handleClick}>Mostrar lo aprendido hasta el momento</button>
+    </React.Fragment>
+  )
+}
+
+export default App
 ```

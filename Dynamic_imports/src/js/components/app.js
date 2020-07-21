@@ -15,8 +15,12 @@ console.log(data);
 function App(){
   const [loaderList, setLoaderList] = useState([])
 
-  function handleClick (){
+  async function handleClick (){
     setLoaderList(data.loaders)
+
+    const { alerta } = await import ('./alert')
+
+    alerta(`Este modulo ha cargado dinamicamente`)
   }
 
   return(
@@ -38,7 +42,7 @@ function App(){
         }
       </ul>
 
-    <button onClick={handleClick}>Mostrar lo aprendido hasta el momento</button>
+      <button onClick={handleClick}>Mostrar lo aprendido hasta el momento</button>
     </React.Fragment>
   )
 }

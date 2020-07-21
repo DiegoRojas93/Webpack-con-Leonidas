@@ -6,6 +6,11 @@ import data from './data.json'
 import logo from '../../images/platzi.png'
 import video from '../../video/que-es-core.mp4'
 
+import '../../sass/sass.scss'
+import '../../less/less.less'
+import '../../stylus/stylus.styl'
+import '../../css/postcss.css'
+
 console.log(data);
 
 function App(){
@@ -18,7 +23,11 @@ function App(){
   return(
     <React.Fragment>
       <div>
-        Que linda aplicación hecha en React.js
+        <h1>Que linda aplicación hecha en React.js</h1>
+        <p className="sass">Esto es sass</p>
+        <p className="less">Esto es less</p>
+        <p className="stylus">Esto es stylus</p>
+        <p className="post-css">Esto es postcss</p>
       </div>
       <video src={video} width={360} controls poster={logo}></video>
       <p>

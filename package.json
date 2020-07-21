@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "build:preprocesadores": "webpack-dev-server --config ./preprocesadores/webpack_local.config.js"
+    "build:code_spliting": "webpack --config ./code-spliting/webpack_local.config.js"
   },
   "keywords": [],
   "author": "Diego Rojas <diegorojas431@gmail.com>",

@@ -2,32 +2,34 @@
 
 **Webpack** es un empaquetador de modulos para aplicaciones JavaScript modernas. Es decir, aplicaciones como Sass, ES6 ó superiores , png, react, etc. Que es por lo común los navegadores no entienden, webpack hace posible que esta imposiblidad suceda transpilando estas tecnologias bundles que el navegador entienda. Mejorando asi la experiencia de dos actores principales: ***User Experience: production*** y la ***Developer Experience: Desallorro***
 
-### Hot Module Replacement (HMR)
+### soportes de imagenes, fuentes y videos
 
-Genralmente React tiene como sintaxis JSX, el cual el navegador no puede entender. Gracias a Babel y Webpack podemos hacer que qu el navegador pueda entender nuestro codigo de una manera más sencilla.
+Genralmente en nuestros proyectos necesitaremos usar imagenes, videos y fuentes (@imports a css) que son importados a JavaScript ó a react.
 
-Para que react tenga soporte en nuestro proyecto, necesitaremos instalar la siguiente dependencia.
+para ello necesitaremos usar 2 loaders para que transforme estos archivos a base64 que entendera JavaScript ó react.
 
-`npm install @babel/preset-react -D -E`
-`npm install react react-dom -S -E`
+`npm install url-loader -D -E`
+`npm install file-loader -D -E`
 
-- **@babel/preset-react:** webpack y babel podran leer la sintaxis de react.
-- **react** y **react-dom:** util para usar JSX y crear componentes en base en react.
-
-Luego deberemos pre-establecer react en el archivo de .babelrc para que Babel entienda la sintaxis de react.
+- **url-loader:** convierte los archivos en URL base64.
+- **file-loader:** Emite el archivo que no puede procesar el url-loader al directorio de salida.
 
 ###### Ejemplo
 
-***.babelrc***
+***webpack_nombre.config.js***
 
 ```
-{
-  "plugins": [
-    "@babel/plugin-transform-runtime"
-  ],
-  "presets": [
-    "@babel/preset-env",
-    "@babel/preset-react"
+module:{
+  rules:[
+    {
+      test: /\.jpg|png|gif|woff|eot|ttf|svg|mp4|webm$/,
+      use: {
+        loader: 'url-loader',
+        options: {
+          limit: 90000,
+        }
+      }
+    }
   ]
 }
 ```

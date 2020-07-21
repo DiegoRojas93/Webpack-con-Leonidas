@@ -1,6 +1,6 @@
 const path = require ('path')
 
-// const MiniCSSExtractPlugin = require ('mini-css-extract-plugin')
+const MiniCSSExtractPlugin = require ('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require ('html-webpack-plugin')
 const webpack =  require('webpack')
 
@@ -13,11 +13,6 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: "js/[name].js"
   },
-  devServer:{
-    hot: true,
-    open: true,
-    port: 9000
-  },
   module:{
     rules:[
       {
@@ -28,7 +23,9 @@ module.exports = {
       {
         test: /\.css$/,
         use:[
-          {loader: 'style-loader'},
+          {
+            loader: MiniCSSExtractPlugin.loader
+          },
           {
             loader: 'css-loader',
             options: {
@@ -41,7 +38,9 @@ module.exports = {
       {
         test: /\.scss$/,
         use:[
-          {loader: 'style-loader'},
+          {
+            loader: MiniCSSExtractPlugin.loader
+          },
           {loader: 'css-loader'},
           {loader: 'sass-loader'},
         ]
@@ -49,7 +48,9 @@ module.exports = {
       {
         test: /\.less$/,
         use:[
-          {loader: 'style-loader'},
+          {
+            loader: MiniCSSExtractPlugin.loader
+          },
           {loader: 'css-loader'},
           {loader: 'less-loader'},
         ]
@@ -57,7 +58,9 @@ module.exports = {
       {
         test: /\.styl$/,
         use:[
-          {loader: 'style-loader'},
+          {
+            loader: MiniCSSExtractPlugin.loader
+          },
           {loader: 'css-loader'},
           {loader: 'stylus-loader'},
         ]
@@ -74,18 +77,18 @@ module.exports = {
     ]
   },
   plugins:[
+    new MiniCSSExtractPlugin({
+      filename: 'css/[name].css',
+      chunkFilename: 'css/[id].css'
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      title: 'code-spliting',
+      title: 'Dll-Plugin',
       template: path.resolve(__dirname, 'index.html')
     }),
+    new webpack.DllReferencePlugin({
+      manifest: require ('./modules-manifest.json')
+    })
   ],
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      minSize: 0,
-      name: 'commons'
-    }
-  },
   mode: 'production',
 }

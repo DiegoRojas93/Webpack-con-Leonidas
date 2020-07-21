@@ -4,43 +4,19 @@
 
 ### Hot Module Replacement (HMR)
 
-Genralmente como desarrolladores menejaremos caracteristicas de JavaScript en nuestros proyectos superior a ES6 de lso cuales el navegador no padria interpretar.
+Genralmente React tiene como sintaxis JSX, el cual el navegador no puede entender. Gracias a Babel y Webpack podemos hacer que qu el navegador pueda entender nuestro codigo de una manera más sencilla.
 
-Por ello de Webpack puede usar a **Babel** como un ayudante que permite transpilar nuestro codigo moderno de JavaScript a codigo que el navegador entiende.
+Para que react tenga soporte en nuestro proyecto, necesitaremos instalar la siguiente dependencia.
 
-Para ello deberemos instalar las siguientes dependencias para poder usar Babel en Webpack.
+`npm install @babel/preset-react -D -E`
+`npm install react react-dom -S -E`
 
-`npm install babel-loader -D -E`
-`npm install @babel-core -D -E`
-`npm install @babel-preset-env -D -E`
-`npm install @babel/runtime -S -E`
-`npm install @babel/plugin-transform-runtime -D -E`
+- **@babel/preset-react:** webpack y babel podran leer la sintaxis de react.
+- **react** y **react-dom:** util para usar JSX y crear componentes en base en react.
 
-- **babel-loader:** Interceptara nuestros archivos JS de nuestro de proyecto.
-
-- **@babel-core:** Babel empezara a trabajar con los archivos JS interceptados por medio del archivo en el navegador.
-
-- **@babel-preset-env:** Que caracteristicas de JS queremos que preajuste para que sea soportado en el navegador.
-
-- **@babel/runtime:** Es una bblioteca que contiene loa ayudantes del runtime que permite entender codigo moderno a babel, como funciones asincronas, template literals ó arrow functions.
-
-- **@babel/plugin-transform-runtime:** Perminte ahorrar el tamaño del codigo, ademas de jalar el core de @babel/runtime.
+Luego deberemos pre-establecer react en el archivo de .babelrc para que Babel entienda la sintaxis de react.
 
 ###### Ejemplo
-
-***webpack_local.config.js***
-
-```
-  module:{
-    rules:[
-      {
-        test: /\.js$/,
-        use: 'babel-loader',
-        exclude: /node_modules/
-      }
-    ]
-  }
-```
 
 ***.babelrc***
 
@@ -50,7 +26,8 @@ Para ello deberemos instalar las siguientes dependencias para poder usar Babel e
     "@babel/plugin-transform-runtime"
   ],
   "presets": [
-    "@babel/preset-env"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ]
 }
 ```

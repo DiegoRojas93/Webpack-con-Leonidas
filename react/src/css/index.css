@@ -10,17 +10,4 @@ body{
   text-align: center;
   text-shadow: 1px 1px 1px black;
   color: white;
-  animation: 300ms latido infinite;
-}
-
-@keyframes latido {
-  from{
-    transform: scale(1);
-  }
-  50%{
-    transform: scale(1.1);
-  }
-  to{
-    transform: scale(1);
-  }
 }

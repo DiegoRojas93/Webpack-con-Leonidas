@@ -1,8 +1,9 @@
 const path = require ('path')
 
+const AddAssetHtmlPlugin = require ('add-asset-html-webpack-plugin')
 const MiniCSSExtractPlugin = require ('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require ('html-webpack-plugin')
-const webpack =  require('webpack')
+const webpack = require('webpack')
 
 module.exports = {
   entry: {
@@ -51,6 +52,11 @@ module.exports = {
     }),
     new webpack.DllReferencePlugin({
       manifest: require ('./modules-manifest.json')
+    }),
+    new AddAssetHtmlPlugin({
+      filepath:  path.resolve(__dirname, 'dist/js/*.dll.js'),
+      outputPath: 'js',
+      publicPath:'http://localhost:3001/js'
     })
   ]
 }

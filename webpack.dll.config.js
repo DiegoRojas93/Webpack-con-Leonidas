@@ -5,7 +5,8 @@ module.exports = {
   entry: {
     modules: [
       'react',
-      'react-dom'
+      'react-dom',
+      'react-router-dom'
     ]
   },
   output: {
@@ -18,6 +19,5 @@ module.exports = {
       name: '[name]',
       path: path.join(__dirname, '[name]-manifest.json')
     })
-  ],
-  mode: 'production'
+  ]
 }

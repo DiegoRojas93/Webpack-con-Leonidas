@@ -6,13 +6,12 @@ const webpack =  require('webpack')
 
 module.exports = {
   entry: {
-    home: path.resolve(__dirname, 'src/js/index.js'),
-    contact: path.resolve(__dirname, 'src/js/contact.js'),
+    app: path.resolve(__dirname, 'src/index.js'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: "js/[name].js",
-    publicPath: 'dist/',
+    publicPath: 'http://localhost:3001/',
     chunkFilename: 'js/[id].[chunkhash].js'
   },
   module:{
@@ -28,43 +27,7 @@ module.exports = {
           {
             loader: MiniCSSExtractPlugin.loader
           },
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1
-            }
-          },
-          {loader: 'postcss-loader'},
-        ]
-      },
-      {
-        test: /\.scss$/,
-        use:[
-          {
-            loader: MiniCSSExtractPlugin.loader
-          },
-          {loader: 'css-loader'},
-          {loader: 'sass-loader'},
-        ]
-      },
-      {
-        test: /\.less$/,
-        use:[
-          {
-            loader: MiniCSSExtractPlugin.loader
-          },
-          {loader: 'css-loader'},
-          {loader: 'less-loader'},
-        ]
-      },
-      {
-        test: /\.styl$/,
-        use:[
-          {
-            loader: MiniCSSExtractPlugin.loader
-          },
-          {loader: 'css-loader'},
-          {loader: 'stylus-loader'},
+          'css-loader'
         ]
       },
       {
@@ -72,7 +35,7 @@ module.exports = {
         use: {
           loader: 'url-loader',
           options: {
-            limit: 90000,
+            limit: 1000,
           }
         }
       },
@@ -83,14 +46,11 @@ module.exports = {
       filename: 'css/[name].css',
       chunkFilename: 'css/[id].css'
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Dll-Plugin',
-      template: path.resolve(__dirname, 'index.html')
+      template: path.resolve(__dirname, 'public/index.html')
     }),
     new webpack.DllReferencePlugin({
       manifest: require ('./modules-manifest.json')
     })
-  ],
-  mode: 'production',
+  ]
 }
